@@ -20,7 +20,7 @@ const SignUp = () => {
       });
     } else {
       try {
-        let res = await fetch("http://localhost:5000/signUp", {
+        let res = await fetch("https://password-reset-mechanism-back-end.vercel.app/signUp", {
           method: "POST",
           headers: {
             "content-Type": "application/json",

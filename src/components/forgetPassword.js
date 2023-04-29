@@ -9,7 +9,7 @@ const ForgetPassword=()=>{
     const getVerification=async(event)=>{
         event.preventDefault();
         try {
-            let res=  await fetch("http://localhost:5000/forget",{
+            let res=  await fetch("https://password-reset-mechanism-back-end.vercel.app/forget",{
             method:"PUT",
             headers:{
                 "content-Type":"application/json"
@@ -25,7 +25,7 @@ const ForgetPassword=()=>{
             let code = prompt("Enter the verification Code","")
 
             if(code){
-                let res = await fetch("http://localhost:5000/verification",{
+                let res = await fetch("https://password-reset-mechanism-back-end.vercel.app/verification",{
                     method:"POST",
                     headers:{
                         "content-Type": "application/json",

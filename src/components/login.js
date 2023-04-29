@@ -9,7 +9,7 @@ const LogIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      let res = await fetch("http://localhost:5000/logIn", {
+      let res = await fetch("https://password-reset-mechanism-back-end.vercel.app/logIn", {
         method: "POST",
         headers: {
           "content-Type": "application/json",

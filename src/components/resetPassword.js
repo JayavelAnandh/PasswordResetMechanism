@@ -17,7 +17,7 @@ const ResetPassword = () => {
       });
     } else {
       try {
-        let res = await fetch("http://localhost:5000/updatePassword", {
+        let res = await fetch("https://password-reset-mechanism-back-end.vercel.app/updatePassword", {
           method: "PUT",
           headers: {
             "content-Type": "application/json",
