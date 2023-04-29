@@ -7,42 +7,50 @@ const SignUp = () => {
   let [userName, setUserName] = useState("");
   let [gmail, setGmail] = useState("");
   let [password, setPassword] = useState("");
+  let [confirmPassword, setConfirmPassword] = useState("");
   let navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      let res = await fetch("http://localhost:5000/signUp", {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName,
-          gmail,
-          password,
-        }),
-      });
-      let response = await res.json();
-      if (response.userName) {
-        localStorage.setItem("userName", response.userName);
-        swal("Successfully SignedUp", "", "success");
-        navigate("/");
-      }
-      else{
-        swal({
-            text: response.message,
-            icon: "warning",
-            dangerMode: true, 
-        })
-      }
-    } catch (error) {
-      console.log(error);
-      swal({
-        text: "Error occured",
+    if (confirmPassword != password) {
+      return swal({
+        text: "Both passwords should be same",
         icon: "warning",
         dangerMode: true,
       });
+    } else {
+      try {
+        let res = await fetch("http://localhost:5000/signUp", {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userName,
+            gmail,
+            password,
+          }),
+        });
+        let response = await res.json();
+        if (response.userName) {
+          localStorage.setItem("userName", response.userName);
+          swal("Successfully SignedUp", "", "success");
+          navigate("/welcome");
+        } else {
+          swal({
+            text: response.message,
+            icon: "warning",
+            dangerMode: true,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        swal({
+          text: "Error occured",
+          icon: "warning",
+          dangerMode: true,
+        });
+      }
     }
   };
   return (
@@ -77,6 +85,15 @@ const SignUp = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
           <br />
+          <label htmlFor="confirmPassword">Confirm Password *</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(event) => setConfirmPassword(event.target.value)}
+          />
+          <br />
           <button type="submit" onClick={(event) => handleSubmit(event)}>
             Sign Up
           </button>
@@ -84,7 +101,7 @@ const SignUp = () => {
         <br />
         <p>
           Already have an account?
-          <span onClick={() => navigate("/login")}> Log In</span>
+          <span onClick={() => navigate("/")}> Log In</span>
         </p>
       </div>
     </div>

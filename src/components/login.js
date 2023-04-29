@@ -22,7 +22,7 @@ const LogIn = () => {
       let response =await res.json();
       localStorage.setItem("userName",response.userName);
       swal("Logged In successfully","","success");
-      navigate("/")
+      navigate("/welcome")
     } catch (error) {
       console.log(error);
       swal({
